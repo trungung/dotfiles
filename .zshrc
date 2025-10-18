@@ -10,6 +10,7 @@ eval "$(starship init zsh)"
 
 # zoxide alias  
 alias c='z'
+alias cd='z'
 
 # eza aliases
 alias ls='eza -lbF --git'
