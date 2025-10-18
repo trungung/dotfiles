@@ -12,7 +12,7 @@ eval "$(starship init zsh)"
 alias c='z'
 
 # eza aliases
-alias ls='eza'
+alias ls='eza -lbF --git'
 alias l='eza -lbF --git'
 alias ll='eza -lbGF --git'
 alias llm='eza -lbGd --git --sort=modified'
