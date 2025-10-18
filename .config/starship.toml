@@ -1,0 +1,7 @@
+# Disable Docker context entirely
+[docker_context]
+disabled = true
+
+# Disable AWS region entirely  
+[aws]
+disabled = true
