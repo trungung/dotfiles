@@ -18,3 +18,7 @@ alias cd='z'
 alias ls='eza'
 alias l='eza -lbF --git'
 alias lt='eza --tree --level=2'
+
+# Set word style to bash
+autoload -Uz select-word-style
+select-word-style bash
