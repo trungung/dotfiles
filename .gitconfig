@@ -1,3 +1,17 @@
 [user]
 	name = trungung
 	email = ungkientrung@gmail.com
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+	
+[merge]
+	conflictStyle = zdiff3
+
+[delta]
+    navigate = true    # use 'n' and 'N' to jump between diff hunks
+    light = false      # set to true if you're using a light terminal theme
+    side-by-side = true
+    line-numbers = true
+    hyperlinks = true  # makes file paths clickable (if terminal supports it)
