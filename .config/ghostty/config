@@ -27,7 +27,6 @@ font-size = 13
 background-opacity = 0.85
 
 macos-titlebar-style = tabs
-macos-window-buttons = hidden
 macos-titlebar-proxy-icon = hidden
 
 macos-option-as-alt = true
