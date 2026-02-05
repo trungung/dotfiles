@@ -2,6 +2,8 @@
 
 vim.pack.add({
   'https://github.com/echasnovski/mini.nvim',
+  'https://github.com/nvim-lua/plenary.nvim',
+  'https://github.com/ibhagwan/fzf-lua',
   'https://github.com/stevearc/oil.nvim',
   'https://github.com/folke/which-key.nvim',
   'https://github.com/catppuccin/nvim',
@@ -18,21 +20,25 @@ require('catppuccin').setup({
 })
 vim.cmd.colorscheme('catppuccin')
 
--- mini.pick uses its own highlight groups; make its floats respect transparency.
+-- Make common floating UIs respect terminal background ("transparent" look).
 vim.api.nvim_create_autocmd('ColorScheme', {
-  group = vim.api.nvim_create_augroup('user.mini_pick_hl', { clear = true }),
+  group = vim.api.nvim_create_augroup('user.transparent_floats', { clear = true }),
   callback = function()
     local set = vim.api.nvim_set_hl
     for _, group in ipairs({
-      'MiniPickNormal',
-      'MiniPickBorder',
-      'MiniPickPrompt',
+      'NormalFloat',
+      'FloatBorder',
+      'FzfLuaNormal',
+      'FzfLuaBorder',
+      'FzfLuaTitle',
+      'FzfLuaPreviewNormal',
+      'FzfLuaPreviewBorder',
     }) do
       set(0, group, { bg = 'NONE' })
     end
   end,
 })
-vim.cmd('doautocmd ColorScheme')
+vim.api.nvim_exec_autocmds('ColorScheme', {})
 
 -- which-key
 require('which-key').setup({})
@@ -41,11 +47,10 @@ require('which-key').setup({})
 require('oil').setup({})
 map('n', '<leader>e', '<Cmd>Oil<CR>', 'Explorer (Oil)')
 
--- mini.pick
-local pick = require('mini.pick')
-pick.setup({})
-map('n', '<leader>ff', function() pick.builtin.files() end, 'Find files')
-map('n', '<leader>fg', function() pick.builtin.grep_live() end, 'Live grep')
+-- fzf-lua (files + live grep)
+require('fzf-lua').setup({})
+map('n', '<leader>ff', function() require('fzf-lua').files() end, 'Find files')
+map('n', '<leader>fg', function() require('fzf-lua').live_grep() end, 'Live grep')
 
 -- mini.move
 require('mini.move').setup({})
