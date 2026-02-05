@@ -4,6 +4,7 @@ vim.pack.add({
   'https://github.com/echasnovski/mini.nvim',
   'https://github.com/nvim-lua/plenary.nvim',
   'https://github.com/ibhagwan/fzf-lua',
+  'https://github.com/lewis6991/gitsigns.nvim',
   'https://github.com/stevearc/oil.nvim',
   'https://github.com/folke/which-key.nvim',
   'https://github.com/catppuccin/nvim',
@@ -46,6 +47,23 @@ require('which-key').setup({})
 -- Oil
 require('oil').setup({})
 map('n', '<leader>e', '<Cmd>Oil<CR>', 'Explorer (Oil)')
+
+-- gitsigns
+require('gitsigns').setup({
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+    local bmap = function(lhs, rhs, desc)
+      vim.keymap.set('n', lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
+    end
+
+    bmap(']h', gs.next_hunk, 'Next hunk')
+    bmap('[h', gs.prev_hunk, 'Prev hunk')
+    bmap('<leader>hs', gs.stage_hunk, 'Stage hunk')
+    bmap('<leader>hr', gs.reset_hunk, 'Reset hunk')
+    bmap('<leader>hp', gs.preview_hunk, 'Preview hunk')
+    bmap('<leader>hb', function() gs.blame_line({ full = true }) end, 'Blame line')
+  end,
+})
 
 -- fzf-lua (files + live grep)
 require('fzf-lua').setup({})
