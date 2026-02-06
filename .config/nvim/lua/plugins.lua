@@ -4,6 +4,7 @@ vim.pack.add({
   'https://github.com/echasnovski/mini.nvim',
   'https://github.com/nvim-lua/plenary.nvim',
   'https://github.com/ibhagwan/fzf-lua',
+  'https://github.com/nvim-treesitter/nvim-treesitter',
   'https://github.com/lewis6991/gitsigns.nvim',
   'https://github.com/stevearc/oil.nvim',
   'https://github.com/folke/which-key.nvim',
@@ -69,6 +70,42 @@ require('gitsigns').setup({
 require('fzf-lua').setup({})
 map('n', '<leader>ff', function() require('fzf-lua').files() end, 'Find files')
 map('n', '<leader>fg', function() require('fzf-lua').live_grep() end, 'Live grep')
+
+-- treesitter
+-- No need to call setup for nvim-treesitter to work using default values.
+require('nvim-treesitter').install({
+  -- web
+  'javascript',
+  'typescript',
+  'tsx',
+  'json',
+  'html',
+  'css',
+  -- backend
+  'python',
+  'go',
+  'gomod',
+  'gowork',
+  'gosum',
+  'c_sharp',
+  -- nvim/config niceties
+  'lua',
+  'vim',
+  'vimdoc',
+  'bash',
+  'yaml',
+  'toml',
+  'markdown',
+  'markdown_inline',
+  'query',
+})
+-- enable treesitter highlighting for any buffer with a parser
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('user.treesitter', { clear = true }),
+  callback = function(args)
+    pcall(vim.treesitter.start, args.buf)
+  end,
+})
 
 -- mini.move
 require('mini.move').setup({})
