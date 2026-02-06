@@ -17,3 +17,5 @@ vim.o.clipboard = 'unnamedplus'
 
 vim.g.loaded_netrw = 1 -- disable netrw to avoid conflict with Oil
 vim.g.loaded_netrwPlugin = 1 -- disable netrw to avoid conflict with Oil
+
+vim.o.termguicolors=true
