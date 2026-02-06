@@ -107,5 +107,6 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- mini.move
+-- mini
 require('mini.move').setup({})
+require('mini.pairs').setup({})
