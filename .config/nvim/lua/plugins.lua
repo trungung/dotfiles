@@ -83,7 +83,20 @@ map('n', '<leader>fg', function() require('fzf-lua').live_grep() end, 'Live grep
 -- LSP (Neovim 0.11+)
 -- Install language servers via :Mason, then enable them here.
 require('mason').setup({})
-vim.lsp.enable({ 'lua_ls', 'ts_ls', 'pyright', 'gopls', 'csharp_ls' })
+vim.lsp.enable({
+  'lua_ls',
+  'ts_ls',
+  'html',
+  'cssls',
+  'jsonls',
+  'tailwindcss',
+  'yamlls',
+  'bashls',
+  'angularls',
+  'pyright',
+  'gopls',
+  'csharp_ls',
+})
 
 -- treesitter
 -- No need to call setup for nvim-treesitter to work using default values.
