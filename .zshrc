@@ -19,6 +19,8 @@ alias c='claude'
 alias co='copilot'
 alias op='opencode'
 alias lg='lazygit'
+alias n='nvim .'
+
 
 alias cd='z'
 alias y='yazi'
