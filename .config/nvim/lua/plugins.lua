@@ -4,6 +4,9 @@ vim.pack.add({
   'https://github.com/echasnovski/mini.nvim',
   'https://github.com/nvim-lua/plenary.nvim',
   'https://github.com/ibhagwan/fzf-lua',
+  'https://github.com/Saghen/blink.cmp',
+  'https://github.com/L3MON4D3/LuaSnip',
+  'https://github.com/rafamadriz/friendly-snippets',
   'https://github.com/mason-org/mason.nvim',
   'https://github.com/neovim/nvim-lspconfig',
   'https://github.com/nvim-treesitter/nvim-treesitter',
@@ -79,6 +82,18 @@ require('fzf-lua').setup({
 })
 map('n', '<leader>ff', function() require('fzf-lua').files() end, 'Find files')
 map('n', '<leader>fg', function() require('fzf-lua').live_grep() end, 'Live grep')
+
+-- blink.cmp
+require('luasnip.loaders.from_vscode').lazy_load()
+require('blink.cmp').setup({
+  snippets = { preset = 'luasnip' },
+  sources = {
+    default = { 'lsp', 'path', 'snippets', 'buffer' },
+  },
+  keymap = {
+    preset="default",
+  },
+})
 
 -- LSP (Neovim 0.11+)
 -- Install language servers via :Mason, then enable them here.

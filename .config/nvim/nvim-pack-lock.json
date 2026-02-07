@@ -1,5 +1,17 @@
 {
   "plugins": {
+    "LuaSnip": {
+      "rev": "dae4f5aaa3574bd0c2b9dd20fb9542a02c10471c",
+      "src": "https://github.com/L3MON4D3/LuaSnip"
+    },
+    "blink.cmp": {
+      "rev": "f9e855c4d96e1264f7c818844f5a0166ad48c212",
+      "src": "https://github.com/Saghen/blink.cmp"
+    },
+    "friendly-snippets": {
+      "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
+      "src": "https://github.com/rafamadriz/friendly-snippets"
+    },
     "fzf-lua": {
       "rev": "c86b72c62b01d2242cafa45fb0d1fc3bf66e6a2b",
       "src": "https://github.com/ibhagwan/fzf-lua"
