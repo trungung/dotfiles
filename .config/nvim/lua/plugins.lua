@@ -83,6 +83,8 @@ require('fzf-lua').setup({
 })
 map('n', '<leader>ff', function() require('fzf-lua').files() end, 'Find files')
 map('n', '<leader>fg', function() require('fzf-lua').live_grep() end, 'Live grep')
+map('n', '<leader>fb', function() require('fzf-lua').buffers() end, 'Find buffers')
+map('n', '<leader>fo', function() require('fzf-lua').oldfiles() end, 'Recent files')
 
 -- blink.cmp
 require('luasnip.loaders.from_vscode').lazy_load()
@@ -302,6 +304,15 @@ end, 'Format buffer')
 -- LSP (Neovim 0.11+)
 -- Install language servers via :Mason, then enable them here.
 require('mason').setup({})
+vim.lsp.config('lua_ls', {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' },
+      },
+    },
+  },
+})
 vim.lsp.enable({
   'lua_ls',
   'ts_ls',
