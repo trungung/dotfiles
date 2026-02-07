@@ -69,7 +69,14 @@ require('gitsigns').setup({
 })
 
 -- fzf-lua (files + live grep)
-require('fzf-lua').setup({})
+require('fzf-lua').setup({
+  keymap = {
+    fzf = {
+      ['alt-j'] = 'down',
+      ['alt-k'] = 'up',
+    },
+  },
+})
 map('n', '<leader>ff', function() require('fzf-lua').files() end, 'Find files')
 map('n', '<leader>fg', function() require('fzf-lua').live_grep() end, 'Live grep')
 
