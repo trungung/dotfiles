@@ -31,5 +31,4 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO] = " ",
     },
   },
-  }
-)
+})
