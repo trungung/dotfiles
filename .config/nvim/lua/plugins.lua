@@ -87,12 +87,14 @@ map('n', '<leader>fg', function() require('fzf-lua').live_grep() end, 'Live grep
 require('luasnip.loaders.from_vscode').lazy_load()
 require('blink.cmp').setup({
   snippets = { preset = 'luasnip' },
+  fuzzy = { implementation = "lua" },
   sources = {
     default = { 'lsp', 'path', 'snippets', 'buffer' },
   },
   keymap = {
     preset="default",
   },
+  cmdline = { enabled = false },
 })
 
 -- LSP (Neovim 0.11+)
