@@ -32,3 +32,20 @@ vim.diagnostic.config({
     },
   },
 })
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('user.lsp_attach', { clear = true }),
+  callback = function(args)
+    local bmap = function(mode, lhs, rhs, desc)
+      vim.keymap.set(mode, lhs, rhs, { buffer = args.buf, silent = true, desc = desc })
+    end
+
+    bmap('n', 'K', vim.lsp.buf.hover, 'LSP Hover')
+    bmap('n', 'gd', vim.lsp.buf.definition, 'LSP Definition')
+    bmap('n', 'gr', vim.lsp.buf.references, 'LSP References')
+    bmap('n', 'gi', vim.lsp.buf.implementation, 'LSP Implementation')
+    bmap('n', '<leader>rn', vim.lsp.buf.rename, 'LSP Rename')
+    bmap({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, 'LSP Code action')
+    bmap('n', '<leader>cd', vim.diagnostic.open_float, 'Line diagnostics')
+  end,
+})
