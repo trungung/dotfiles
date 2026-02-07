@@ -21,13 +21,23 @@
   ],
   "provider": {
     "anthropic": {
-      "whitelist": ["claude-opus-4-5", "claude-sonnet-4-5", "claude-haiku-4-5"]
+      "whitelist": [
+        "claude-opus-4-5",
+        "claude-sonnet-4-5",
+        "claude-haiku-4-5"
+      ]
     },
     "google": {
-      "whitelist": ["gemini-3-pro-preview", "gemini-3-flash-preview"]
+      "whitelist": [
+        "gemini-3-pro-preview",
+        "gemini-3-flash-preview"
+      ]
     },
     "azure": {
-      "whitelist": ["gpt-5.1-codex", "gpt-5.1-codex-max"]
+      "whitelist": [
+        "gpt-5.1-codex",
+        "gpt-5.1-codex-max"
+      ]
     }
   }
 }
