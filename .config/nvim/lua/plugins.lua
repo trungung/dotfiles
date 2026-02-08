@@ -128,6 +128,8 @@ vim.lsp.enable({
   'pyright',
   'gopls',
   'csharp_ls',
+  'eslint',
+  'biome'
 })
 
 -- treesitter
