@@ -9,9 +9,11 @@ vim.o.signcolumn = 'yes'
 
 vim.o.ignorecase = true         -- case-insensitive search by default
 vim.o.smartcase = true          -- make search case-sensitive if uppercase used
+vim.o.hlsearch = true           -- highlight all matches after / or ? search
 
 vim.o.undofile = true           -- persist undo history across sessions
 vim.o.swapfile = false          -- disable swap files
+vim.o.autoread = true           -- auto-reload files changed outside Neovim
 
 vim.o.clipboard = 'unnamedplus' -- share clipboard with system
 
@@ -30,7 +32,25 @@ vim.o.mouse = 'a'               -- enable mouse support in all modes
 vim.o.updatetime = 250          -- faster updates for diagnostics/signs
 vim.o.timeoutlen = 400          -- shorter wait for mapped key sequences
 
+vim.keymap.set({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = 'Down (wrapped)' })
+vim.keymap.set({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = 'Up (wrapped)' })
 vim.keymap.set('n', '<Esc>', '<Cmd>nohlsearch<CR>', { silent = true, desc = 'Clear search highlight' })
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = vim.api.nvim_create_augroup('user.yank_highlight', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank({ higroup = 'Visual', timeout = 150 })
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
+  group = vim.api.nvim_create_augroup('user.autoread_checktime', { clear = true }),
+  callback = function()
+    if vim.fn.mode() ~= 'c' and vim.bo.buftype == '' then
+      vim.cmd('checktime')
+    end
+  end,
+})
 
 vim.g.loaded_netrw = 1          -- disable netrw to avoid conflict with Oil
 vim.g.loaded_netrwPlugin = 1    -- disable netrw plugin to avoid conflict
