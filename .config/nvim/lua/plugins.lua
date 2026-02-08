@@ -2,13 +2,13 @@
 
 vim.pack.add({
   'https://github.com/echasnovski/mini.nvim',
-  'https://github.com/nvim-lua/plenary.nvim',
   'https://github.com/ibhagwan/fzf-lua',
   'https://github.com/Saghen/blink.cmp',
   'https://github.com/L3MON4D3/LuaSnip',
   'https://github.com/rafamadriz/friendly-snippets',
   'https://github.com/stevearc/conform.nvim',
   'https://github.com/mason-org/mason.nvim',
+  'https://github.com/williamboman/mason-lspconfig.nvim',
   'https://github.com/neovim/nvim-lspconfig',
   'https://github.com/nvim-treesitter/nvim-treesitter',
   'https://github.com/lewis6991/gitsigns.nvim',
@@ -104,8 +104,29 @@ require('blink.cmp').setup({
 require('plugins.format').setup(map)
 
 -- LSP (Neovim 0.11+)
--- Install language servers via :Mason, then enable them here.
+local lsp_servers = {
+  'lua_ls',
+  'ts_ls',
+  'html',
+  'cssls',
+  'tailwindcss',
+  'angularls',
+  'jsonls',
+  'yamlls',
+  'bashls',
+  'pyright',
+  'gopls',
+  'csharp_ls',
+  'eslint',
+  'biome',
+}
+
 require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = lsp_servers,
+  automatic_enable = false,
+})
+
 vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
@@ -115,22 +136,32 @@ vim.lsp.config('lua_ls', {
     },
   },
 })
-vim.lsp.enable({
-  'lua_ls',
-  'ts_ls',
-  'html',
-  'cssls',
-  'jsonls',
-  'tailwindcss',
-  'yamlls',
-  'bashls',
-  'angularls',
-  'pyright',
-  'gopls',
-  'csharp_ls',
-  'eslint',
-  'biome'
+
+vim.lsp.config('eslint', {
+  root_markers = {
+    'eslint.config.js',
+    'eslint.config.cjs',
+    'eslint.config.mjs',
+    'eslint.config.ts',
+    'eslint.config.cts',
+    'eslint.config.mts',
+    '.eslintrc',
+    '.eslintrc.js',
+    '.eslintrc.cjs',
+    '.eslintrc.yml',
+    '.eslintrc.yaml',
+    '.eslintrc.json',
+  },
 })
+
+vim.lsp.config('biome', {
+  root_markers = {
+    'biome.json',
+    'biome.jsonc',
+  },
+})
+
+vim.lsp.enable(lsp_servers)
 
 -- treesitter
 -- No need to call setup for nvim-treesitter to work using default values.
