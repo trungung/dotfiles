@@ -30,6 +30,8 @@ vim.o.mouse = 'a'               -- enable mouse support in all modes
 vim.o.updatetime = 250          -- faster updates for diagnostics/signs
 vim.o.timeoutlen = 400          -- shorter wait for mapped key sequences
 
+vim.keymap.set('n', '<Esc>', '<Cmd>nohlsearch<CR>', { silent = true, desc = 'Clear search highlight' })
+
 vim.g.loaded_netrw = 1          -- disable netrw to avoid conflict with Oil
 vim.g.loaded_netrwPlugin = 1    -- disable netrw plugin to avoid conflict
 
