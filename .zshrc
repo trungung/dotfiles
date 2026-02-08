@@ -53,7 +53,7 @@ tell application "System Events" to tell process "Ghostty"
   keystroke "lazygit"
   keystroke return
   
-  repeat 8 times
+  repeat 6 times
     key code 126 using {control down, command down}
   end repeat
 end tell
