@@ -48,8 +48,22 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 })
 vim.api.nvim_exec_autocmds('ColorScheme', {})
 
--- which-key
-require('which-key').setup({})
+-- which-key: discover leader groups while you are still learning keymaps.
+local wk = require('which-key')
+wk.setup({})
+if wk.add then
+  wk.add({
+    { '<leader>c', group = 'Code' },
+    { '<leader>f', group = 'Find' },
+    { '<leader>h', group = 'Git Hunks' },
+  })
+else
+  wk.register({
+    c = { name = 'Code' },
+    f = { name = 'Find' },
+    h = { name = 'Git Hunks' },
+  }, { prefix = '<leader>' })
+end
 
 -- Oil
 require('oil').setup({})
@@ -86,7 +100,8 @@ map('n', '<leader>fg', function() require('fzf-lua').live_grep() end, 'Live grep
 map('n', '<leader>fb', function() require('fzf-lua').buffers() end, 'Find buffers')
 map('n', '<leader>fo', function() require('fzf-lua').oldfiles() end, 'Recent files')
 
--- blink.cmp
+-- blink.cmp: super-tab keeps completion acceptance close to VS Code muscle memory.
+-- Tab confirms completion when menu is visible and jumps snippet placeholders.
 require('luasnip.loaders.from_vscode').lazy_load()
 require('blink.cmp').setup({
   snippets = { preset = 'luasnip' },
@@ -95,15 +110,17 @@ require('blink.cmp').setup({
     default = { 'lsp', 'path', 'snippets', 'buffer' },
   },
   keymap = {
-    preset = "default",
+    preset = "super-tab",
   },
   cmdline = { enabled = false },
 })
 
--- formatting (conform.nvim)
+-- Formatting policy lives in plugins/format.lua:
+-- prefer project/system formatters via Conform, then fall back to LSP formatting.
 require('plugins.format').setup(map)
 
 -- LSP (Neovim 0.11+)
+-- Mason installs and updates the default server set below.
 local lsp_servers = {
   'lua_ls',
   'ts_ls',
@@ -138,6 +155,7 @@ vim.lsp.config('lua_ls', {
 })
 
 vim.lsp.config('eslint', {
+  -- Attach ESLint only when project config files are present.
   root_markers = {
     'eslint.config.js',
     'eslint.config.cjs',
@@ -155,6 +173,7 @@ vim.lsp.config('eslint', {
 })
 
 vim.lsp.config('biome', {
+  -- Attach Biome only when a Biome config is present.
   root_markers = {
     'biome.json',
     'biome.jsonc',
