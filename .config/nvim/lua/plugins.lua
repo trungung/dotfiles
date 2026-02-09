@@ -109,6 +109,12 @@ require('luasnip.loaders.from_vscode').lazy_load()
 require('blink.cmp').setup({
   snippets = { preset = 'luasnip' },
   fuzzy = { implementation = "lua" },
+  completion = {
+    -- Keep Copilot ghost text readable; open Blink menu manually via <C-space>.
+    menu = { auto_show = false },
+    -- We use Copilot for inline ghost text, so keep Blink ghost text off.
+    ghost_text = { enabled = false },
+  },
   sources = {
     default = { 'lsp', 'path', 'snippets', 'buffer' },
   },
