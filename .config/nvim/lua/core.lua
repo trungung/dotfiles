@@ -53,10 +53,10 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
   end,
 })
 
-vim.g.loaded_netrw = 1          -- disable netrw to avoid conflict with Oil
-vim.g.loaded_netrwPlugin = 1    -- disable netrw plugin to avoid conflict
+vim.g.loaded_netrw = 1       -- disable netrw to avoid conflict with Oil
+vim.g.loaded_netrwPlugin = 1 -- disable netrw plugin to avoid conflict
 
-vim.o.termguicolors = true      -- enable true-color support
+vim.o.termguicolors = true   -- enable true-color support
 
 vim.diagnostic.config({
   virtual_text = true,   -- show diagnostics inline
@@ -69,6 +69,10 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO] = " ",
     },
   },
+  float = {
+    border = "rounded",
+    souce = "if_many",
+  }
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {

@@ -1,0 +1,2 @@
+WRN 2026-02-09T01:32:44.528 ?.36049    server_start:197: Failed to start server: operation not permitted: /var/folders/9d/t63rh6r548jg3f7wlyzzr0lc0000gn/T/nvim.trungung/Lm5U0W/nvim.36049.0
+WRN 2026-02-09T01:32:44.782 ?.36049    server_start:197: Failed to start server: operation not permitted: /var/folders/9d/t63rh6r548jg3f7wlyzzr0lc0000gn/T/nvim.trungung/Lm5U0W/fzf-lua.1770593564.36049.1
