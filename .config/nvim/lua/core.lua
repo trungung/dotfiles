@@ -118,8 +118,10 @@ local function open_tutor_keys()
     '  <leader>e   Explorer (Oil)',
     '',
     'Completion',
-    '  <Tab>       Accept suggestion / next snippet slot',
-    '  <S-Tab>     Previous snippet slot',
+    '  <Tab>       Accept Copilot ghost text',
+    '  <C-space>   Open Blink completion menu',
+    '  <C-n>/<C-p> Select next/previous Blink item',
+    '  <C-y>       Confirm Blink completion item',
     '',
     'Close this help with q or <Esc>.',
   }

@@ -1,9 +1,13 @@
 -- Plugins are fetched/loaded via Neovim 0.12's native package manager.
 
+-- Copilot: keep default <Tab> mapping so ghost text is easy to accept.
+vim.g.copilot_no_tab_map = false
+
 vim.pack.add({
   'https://github.com/echasnovski/mini.nvim',
   'https://github.com/ibhagwan/fzf-lua',
   'https://github.com/Saghen/blink.cmp',
+  'https://github.com/github/copilot.vim',
   'https://github.com/L3MON4D3/LuaSnip',
   'https://github.com/rafamadriz/friendly-snippets',
   'https://github.com/stevearc/conform.nvim',
@@ -100,8 +104,7 @@ map('n', '<leader>fg', function() require('fzf-lua').live_grep() end, 'Live grep
 map('n', '<leader>fb', function() require('fzf-lua').buffers() end, 'Find buffers')
 map('n', '<leader>fo', function() require('fzf-lua').oldfiles() end, 'Recent files')
 
--- blink.cmp: super-tab keeps completion acceptance close to VS Code muscle memory.
--- Tab confirms completion when menu is visible and jumps snippet placeholders.
+-- blink.cmp: use default completion keys and leave Tab to Copilot.
 require('luasnip.loaders.from_vscode').lazy_load()
 require('blink.cmp').setup({
   snippets = { preset = 'luasnip' },
@@ -110,7 +113,9 @@ require('blink.cmp').setup({
     default = { 'lsp', 'path', 'snippets', 'buffer' },
   },
   keymap = {
-    preset = "super-tab",
+    preset = "default",
+    ['<Tab>'] = false,
+    ['<S-Tab>'] = false,
   },
   cmdline = { enabled = false },
 })
