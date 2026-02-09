@@ -1,6 +1,6 @@
--- Plugins are fetched/loaded via Neovim 0.12's native package manager.
+-- use Neovim 0.12 built-in package manager
 
--- Copilot: keep default <Tab> mapping so ghost text is easy to accept.
+-- keep <Tab> for Copilot ghost text accept
 vim.g.copilot_no_tab_map = false
 
 vim.pack.add({
@@ -32,7 +32,7 @@ require('catppuccin').setup({
 })
 vim.cmd.colorscheme('catppuccin')
 
--- Make common floating UIs respect terminal background ("transparent" look).
+-- keep floating UIs aligned with transparent terminal background
 vim.api.nvim_create_autocmd('ColorScheme', {
   group = vim.api.nvim_create_augroup('user.transparent_floats', { clear = true }),
   callback = function()
@@ -52,7 +52,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 })
 vim.api.nvim_exec_autocmds('ColorScheme', {})
 
--- which-key: discover leader groups while you are still learning keymaps.
+-- which-key: show leader groups while learning keymaps
 local wk = require('which-key')
 wk.setup({})
 if wk.add then
@@ -104,15 +104,15 @@ map('n', '<leader>fg', function() require('fzf-lua').live_grep() end, 'Live grep
 map('n', '<leader>fb', function() require('fzf-lua').buffers() end, 'Find buffers')
 map('n', '<leader>fo', function() require('fzf-lua').oldfiles() end, 'Recent files')
 
--- blink.cmp: use default completion keys and leave Tab to Copilot.
+-- use Blink default keys and keep <Tab> for Copilot
 require('luasnip.loaders.from_vscode').lazy_load()
 require('blink.cmp').setup({
   snippets = { preset = 'luasnip' },
   fuzzy = { implementation = "lua" },
   completion = {
-    -- Keep Copilot ghost text readable; open Blink menu manually via <C-space>.
+    -- keep ghost text readable: open Blink menu manually with <C-space>
     menu = { auto_show = false },
-    -- We use Copilot for inline ghost text, so keep Blink ghost text off.
+    -- Copilot handles inline ghost text
     ghost_text = { enabled = false },
   },
   sources = {
@@ -126,12 +126,12 @@ require('blink.cmp').setup({
   cmdline = { enabled = false },
 })
 
--- Formatting policy lives in plugins/format.lua:
--- prefer project/system formatters via Conform, then fall back to LSP formatting.
+-- formatting rules live in plugins/format.lua
+-- use project/system formatters first, then fall back to LSP
 require('plugins.format').setup(map)
 
--- LSP (Neovim 0.11+)
--- Mason installs and updates the default server set below.
+-- LSP setup (Neovim 0.11+)
+-- Mason installs and updates this default server list
 local lsp_servers = {
   'lua_ls',
   'ts_ls',
@@ -194,7 +194,7 @@ vim.lsp.config('biome', {
 vim.lsp.enable(lsp_servers)
 
 -- treesitter
--- No need to call setup for nvim-treesitter to work using default values.
+-- defaults work fine; install parsers only
 require('nvim-treesitter').install({
   -- web
   'javascript',
