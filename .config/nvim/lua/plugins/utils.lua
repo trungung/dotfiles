@@ -20,10 +20,6 @@ local function find_upward(names, start)
   return vim.fs.find(names, { upward = true, path = start })[1]
 end
 
-function M.find_upward(names, start)
-  return find_upward(names, start)
-end
-
 function M.package_json_content(bufnr)
   local filename = get_buffer_name(bufnr)
   if not filename then
