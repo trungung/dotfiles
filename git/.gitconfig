@@ -1,0 +1,28 @@
+[core]
+	pager = delta
+	excludesfile = ~/.gitignore_global
+
+[interactive]
+	diffFilter = delta --color-only
+
+[merge]
+	conflictStyle = zdiff3
+
+[delta]
+	navigate = true
+	light = false
+	side-by-side = true
+	line-numbers = true
+	hyperlinks = true
+
+[includeIf "gitdir:~/Code/trungung/"]
+	path = ~/.config/git/personal.gitconfig
+
+[includeIf "gitdir:~/dotfiles/"]
+	path = ~/.config/git/personal.gitconfig
+
+[includeIf "gitdir:~/Code/work/"]
+	path = ~/.config/git/work.gitconfig
+
+[includeIf "gitdir:~/go/"]
+	path = ~/.config/git/personal.gitconfig

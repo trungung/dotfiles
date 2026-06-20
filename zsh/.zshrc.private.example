@@ -1,0 +1,10 @@
+# Copy to ~/.zshrc.private and edit locally. Do not commit the real file.
+
+# Work/local values.
+# export AZURE_RESOURCE_NAME="..."
+
+# Bitwarden SSH agent, if enabled.
+# export SSH_AUTH_SOCK="$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
+
+# Optional app-specific PATH entries.
+# export PATH="$HOME/.codeium/windsurf/bin:$PATH"

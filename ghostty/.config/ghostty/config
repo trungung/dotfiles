@@ -42,8 +42,8 @@
 
 # a full restart to take effect.
 
-auto-update-channel = tip
-theme = Kanagawa Dragon
+auto-update-channel = stable
+theme = Gruvbox Dark Hard
 font-size = 14
 # background-opacity = 0.85
 unfocused-split-opacity = 1

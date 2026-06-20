@@ -1,1 +1,6 @@
+.DS_Store
 .zshrc.private
+.zprofile.private
+git/.config/git/work.gitconfig
+.config/nvim/.nvimlog
+Brewfile.lock.json

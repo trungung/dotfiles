@@ -1,0 +1,5 @@
+# Copy to ~/.config/git/work.gitconfig and set your corporate identity.
+
+[user]
+	name = Trung Ung
+	email = you@company.example
