@@ -3,6 +3,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
+echo "Checking Homebrew..."
 if ! command -v brew >/dev/null 2>&1; then
   echo "Installing Homebrew..."
   NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -31,7 +32,7 @@ fi
 if [[ "$(uname -s)" == "Darwin" ]]; then
   echo "Some Homebrew casks may need sudo to install helper tools."
   echo "Requesting sudo now so brew bundle does not appear to hang later."
-  sudo -v
+  sudo -v -p "Password for sudo: "
 
   while true; do
     sudo -n true
@@ -41,19 +42,24 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
   trap 'kill "$sudo_keepalive_pid" 2>/dev/null || true' EXIT
 fi
 
+echo "Tapping HashiCorp Homebrew repository..."
 brew tap hashicorp/tap
 
 # Install lock-sensitive tools serially before brew bundle runs the full set.
+echo "Installing bootstrap formulae serially..."
 brew install \
   go \
   docker \
   stow \
   hashicorp/tap/terraform
 
+echo "Running brew bundle..."
 brew bundle --verbose --file Brewfile
 
+echo "Preparing config directories..."
 mkdir -p "$HOME/.config/git"
 
+echo "Stowing dotfiles..."
 stow --restow --target="$HOME" \
   zsh \
   git \
@@ -64,4 +70,7 @@ stow --restow --target="$HOME" \
   opencode
 
 echo "Dotfiles installed."
-echo "Next: install Bitwarden from the App Store, then create ~/.zshrc.private if needed."
+echo "Manual follow-up:"
+echo "- Install Bitwarden from the App Store, then create ~/.zshrc.private if needed."
+echo "- Configure AltTab and its Command-Tab shortcut."
+echo "- Configure Raycast and its shortcut."
