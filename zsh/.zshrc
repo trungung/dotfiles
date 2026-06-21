@@ -39,5 +39,5 @@ if command -v eza >/dev/null 2>&1; then
 fi
 
 if command -v zoxide >/dev/null 2>&1; then
-  alias cd='z'
+  alias j='z'
 fi
