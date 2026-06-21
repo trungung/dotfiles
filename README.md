@@ -16,7 +16,7 @@ The install script runs:
 ```sh
 install Homebrew if missing
 brew bundle --file Brewfile
-stow --target="$HOME" zsh git nvim ghostty lazygit starship opencode
+stow --restow --target="$HOME" zsh git nvim ghostty lazygit starship opencode
 ```
 
 ## Manual Step
@@ -70,7 +70,7 @@ Set `~/.config/git/work.gitconfig` after corporate enrollment.
 - `nvim`: Neovim config
 - `ghostty`: terminal config
 - `lazygit`: lazygit config
-- `starship`: shell prompt
+- `starship`: Gruvbox shell prompt
 - `opencode`: opencode config
 
 ## New Machine Sanity Check

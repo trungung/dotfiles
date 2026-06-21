@@ -12,8 +12,15 @@ if [[ -f "$HOME/.zshrc.private" ]]; then
   source "$HOME/.zshrc.private"
 fi
 
-if [[ -f /opt/homebrew/share/antidote/antidote.zsh ]]; then
+if [[ -f "${HOMEBREW_PREFIX:-}/share/antidote/antidote.zsh" ]]; then
+  source "${HOMEBREW_PREFIX}/share/antidote/antidote.zsh"
+elif [[ -f /opt/homebrew/share/antidote/antidote.zsh ]]; then
   source /opt/homebrew/share/antidote/antidote.zsh
+elif [[ -f /usr/local/share/antidote/antidote.zsh ]]; then
+  source /usr/local/share/antidote/antidote.zsh
+fi
+
+if typeset -f antidote >/dev/null 2>&1; then
   [[ -f "$HOME/.zsh_plugins.txt" ]] && antidote load
 fi
 

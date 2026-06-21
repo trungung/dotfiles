@@ -1,4 +1,5 @@
 .DS_Store
+*.sw?
 .zshrc.private
 .zprofile.private
 git/.config/git/work.gitconfig

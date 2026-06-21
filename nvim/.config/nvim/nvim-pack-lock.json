@@ -36,10 +36,6 @@
       "rev": "afb275d8e6dc379762d122bd24e1773fc057abf3",
       "src": "https://github.com/sainnhe/gruvbox-material"
     },
-    "kanagawa.nvim": {
-      "rev": "aef7f5cec0a40dbe7f3304214850c472e2264b10",
-      "src": "https://github.com/rebelot/kanagawa.nvim"
-    },
     "mason-lspconfig.nvim": {
       "rev": "ae609525ddf01c153c39305730b1791800ffe4fe",
       "src": "https://github.com/williamboman/mason-lspconfig.nvim"
@@ -51,10 +47,6 @@
     "mini.nvim": {
       "rev": "8c40d95931cbe6138391af9180e59439ed2e69df",
       "src": "https://github.com/echasnovski/mini.nvim"
-    },
-    "nvim": {
-      "rev": "beaf41a30c26fd7d6c386d383155cbd65dd554cd",
-      "src": "https://github.com/catppuccin/nvim"
     },
     "nvim-lspconfig": {
       "rev": "66fd02ad1c7ea31616d3ca678fa04e6d0b360824",

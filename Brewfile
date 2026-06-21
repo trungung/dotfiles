@@ -1,4 +1,6 @@
 # CLI tools
+tap "hashicorp/tap"
+
 brew "antidote"
 brew "awscli"
 brew "azure-cli"
@@ -25,7 +27,7 @@ brew "python@3.14"
 brew "ripgrep"
 brew "starship"
 brew "stow"
-brew "terraform"
+brew "hashicorp/tap/terraform"
 brew "uv"
 brew "zoxide"
 
