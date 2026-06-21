@@ -12,6 +12,9 @@ defaults write com.apple.dock show-recents -bool false
 # Keep Spaces in manual order.
 defaults write com.apple.dock mru-spaces -bool false
 
+# Group windows by application in Mission Control.
+defaults write com.apple.dock expose-group-apps -bool true
+
 # Show Finder path bar.
 defaults write com.apple.finder ShowPathbar -bool true
 
