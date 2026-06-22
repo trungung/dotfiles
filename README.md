@@ -16,7 +16,7 @@ The install script runs:
 ```sh
 install Homebrew if missing
 brew bundle --file Brewfile
-stow --restow --target="$HOME" zsh git nvim ghostty lazygit starship opencode
+stow --restow --target="$HOME" zsh git nvim ghostty lazygit starship opencode pi
 ```
 
 ## Manual Step
@@ -63,16 +63,6 @@ Identities are path-specific:
 
 Set `~/.config/git/work.gitconfig` after corporate enrollment.
 
-## Packages
-
-- `zsh`: shell, plugins, private config example
-- `git`: Git, global ignore, personal/work identity split
-- `nvim`: Neovim config
-- `ghostty`: terminal config
-- `lazygit`: lazygit config
-- `starship`: Gruvbox shell prompt
-- `opencode`: opencode config
-
 ## New Machine Sanity Check
 
 After `./install.sh`, expect to spend some time logging in and reconnecting services. The dotfiles restore configuration, not account state.
@@ -82,7 +72,7 @@ Things to do manually:
 - Install Bitwarden from the App Store, log in, and enable the SSH agent/biometric extension if needed.
 - Create `~/.zshrc.private` from `~/.zshrc.private.example` and add machine-specific values.
 - Create `~/.config/git/work.gitconfig` from the example and set the corporate Git identity.
-- Log in to GitHub/GitHub CLI, VS Code, Claude/Codex/OpenCode/Copilot, Microsoft apps, Slack, Obsidian sync, and any browser profiles.
+- Log in to GitHub/GitHub CLI, pi, VS Code, Claude/Codex/OpenCode/Copilot, Microsoft apps, Slack, Obsidian sync, and any browser profiles.
 - Re-auth cloud CLIs as needed: Azure, AWS, Kubernetes, Terraform, Docker/OrbStack.
 - Confirm SSH works for GitHub and work Git remotes.
 - Open Ghostty and check the font/theme, prompt, shell plugins, and `nvim`.

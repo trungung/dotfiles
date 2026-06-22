@@ -67,7 +67,8 @@ stow --restow --target="$HOME" \
   ghostty \
   lazygit \
   starship \
-  opencode
+  opencode \
+  pi
 
 echo "Dotfiles installed."
 echo "Manual follow-up:"
