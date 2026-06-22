@@ -57,7 +57,7 @@ echo "Running brew bundle..."
 brew bundle --verbose --file Brewfile
 
 echo "Preparing config directories..."
-mkdir -p "$HOME/.config/git"
+mkdir -p "$HOME/.config/git" "$HOME/.pi/agent"
 
 echo "Stowing dotfiles..."
 stow --restow --target="$HOME" \
@@ -71,7 +71,4 @@ stow --restow --target="$HOME" \
   pi
 
 echo "Dotfiles installed."
-echo "Manual follow-up:"
-echo "- Install Bitwarden from the App Store, then create ~/.zshrc.private if needed."
-echo "- Configure AltTab and its Command-Tab shortcut."
-echo "- Configure Raycast and its shortcut."
+echo "Manual follow-up: see README.md for local-only config, app sign-ins, and sanity checks."

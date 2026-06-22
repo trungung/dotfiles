@@ -1,88 +1,78 @@
 # Dotfiles
 
-Personal macOS development environment. This repo is organized for GNU Stow: each top-level package mirrors paths relative to `$HOME`.
+Memo for bootstrapping my macOS development environment. This repo is organized for GNU Stow: each top-level directory mirrors paths relative to `$HOME`.
 
-## Fresh Install
+## Fresh Machine Order
 
-```sh
-xcode-select --install
-git clone https://github.com/trungung/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-./install.sh
-```
+1. Install Apple command line tools.
 
-The install script runs:
+   ```sh
+   xcode-select --install
+   ```
 
-```sh
-install Homebrew if missing
-brew bundle --file Brewfile
-stow --restow --target="$HOME" zsh git nvim ghostty lazygit starship opencode pi
-```
+2. Clone this repo.
 
-## Manual Step
+   ```sh
+   git clone https://github.com/trungung/dotfiles.git ~/dotfiles
+   cd ~/dotfiles
+   ```
 
-Install Bitwarden from the App Store so the biometric extension works correctly.
+3. Run the installer.
 
-Optionally review and run macOS UI/defaults tweaks:
+   ```sh
+   ./install.sh
+   ```
 
-```sh
-./scripts/macos.sh
-```
+   This installs Homebrew if needed, runs `brew bundle --file Brewfile`, prepares local config directories, and stows the dotfiles into `$HOME`.
 
-This is not run automatically because macOS preferences are personal and can change across OS versions.
+4. Create local-only config.
 
-## Secrets And Local Config
+   ```sh
+   cp ~/.zshrc.private.example ~/.zshrc.private
+   cp ~/.config/git/work.gitconfig.example ~/.config/git/work.gitconfig
+   ```
 
-Do not commit secrets to this repo.
+   Edit these with machine/work-specific values. Do not commit the real files.
 
-Use local-only files for machine-specific settings:
+5. Sign in and finish app setup.
 
-```text
-~/.zshrc.private
-~/.config/git/work.gitconfig
-```
+   - Install Bitwarden from the App Store, then log in and enable the SSH agent/biometric extension if needed.
+   - Log in to GitHub/GitHub CLI, pi, VS Code, Claude/Codex/OpenCode/Copilot, Microsoft apps, Slack, Obsidian sync, and browser profiles.
+   - Configure AltTab and Raycast shortcuts.
+   - Re-auth cloud/dev CLIs as needed: Azure, AWS, Kubernetes, Terraform, Docker/OrbStack.
+   - Clone only the repos currently needed.
 
-Start from:
+6. Optionally apply macOS defaults after reviewing them.
 
-```sh
-cp ~/.zshrc.private.example ~/.zshrc.private
-cp ~/.config/git/work.gitconfig.example ~/.config/git/work.gitconfig
-```
+   ```sh
+   ./scripts/macos.sh
+   ```
 
-## Git Identity
+## Notes
 
-Shared Git behavior lives in `git/.gitconfig`.
+- Stow links files from this repo into `$HOME`; it does not copy secrets into the repo by itself.
+- If Stow reports an existing-file conflict, inspect the local file and move it aside before rerunning `./install.sh`.
+- Keep secrets and machine-specific state local. Expected local-only files include:
 
-Identities are path-specific:
+  ```text
+  ~/.zshrc.private
+  ~/.config/git/work.gitconfig
+  ~/.pi/agent/auth.json
+  ~/.pi/agent/trust.json
+  ~/.pi/agent/sessions/
+  ~/.pi/agent/npm/
+  ~/.pi/agent/skills/
+  ```
 
-```text
-~/Code/trungung/ -> ~/.config/git/personal.gitconfig
-~/Code/work/     -> ~/.config/git/work.gitconfig
-~/go/            -> ~/.config/git/personal.gitconfig
-```
-
-Set `~/.config/git/work.gitconfig` after corporate enrollment.
-
-## New Machine Sanity Check
-
-After `./install.sh`, expect to spend some time logging in and reconnecting services. The dotfiles restore configuration, not account state.
-
-Things to do manually:
-
-- Install Bitwarden from the App Store, log in, and enable the SSH agent/biometric extension if needed.
-- Create `~/.zshrc.private` from `~/.zshrc.private.example` and add machine-specific values.
-- Create `~/.config/git/work.gitconfig` from the example and set the corporate Git identity.
-- Log in to GitHub/GitHub CLI, pi, VS Code, Claude/Codex/OpenCode/Copilot, Microsoft apps, Slack, Obsidian sync, and any browser profiles.
-- Re-auth cloud CLIs as needed: Azure, AWS, Kubernetes, Terraform, Docker/OrbStack.
-- Confirm SSH works for GitHub and work Git remotes.
-- Open Ghostty and check the font/theme, prompt, shell plugins, and `nvim`.
-- Clone only the repos you actually need; do not blindly restore old worktrees.
-
-Useful checks:
+## Sanity Checklist
 
 ```sh
 git config --show-origin user.email
 gh auth status
 ssh -T git@github.com
 brew bundle check --file ~/dotfiles/Brewfile
+pi --version
+ls -la ~/.pi/agent/prompts ~/.pi/agent/themes
 ```
+
+Then open Ghostty and check the shell prompt, font/theme, shell plugins, `nvim`, and the pi prompt templates.
