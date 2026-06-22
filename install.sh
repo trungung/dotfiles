@@ -57,7 +57,7 @@ echo "Running brew bundle..."
 brew bundle --verbose --file Brewfile
 
 echo "Preparing config directories..."
-mkdir -p "$HOME/.config/git" "$HOME/.pi/agent"
+mkdir -p "$HOME/.config/git"
 
 echo "Stowing dotfiles..."
 stow --restow --target="$HOME" \
@@ -67,8 +67,7 @@ stow --restow --target="$HOME" \
   ghostty \
   lazygit \
   starship \
-  opencode \
-  pi
+  opencode
 
 echo "Dotfiles installed."
 echo "Manual follow-up: see README.md for local-only config, app sign-ins, and sanity checks."
