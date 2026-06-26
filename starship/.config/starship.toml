@@ -1,4 +1,5 @@
 "$schema" = "https://starship.rs/config-schema.json"
+command_timeout = 2000
 
 # Gruvbox prompt based on Starship's gruvbox-rainbow preset.
 format = """
