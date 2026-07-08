@@ -38,7 +38,7 @@ brew "yq"
 brew "zoxide"
 
 # Apps
-cask "alt-tab"
+cask "dockdoor"
 cask "appcleaner"
 cask "bruno"
 cask "calibre"
