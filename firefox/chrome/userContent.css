@@ -1,0 +1,70 @@
+@-moz-document url("about:newtab"), url("about:home") {
+  :root {
+    --newtab-background-color: #fcf5f0;
+    --newtab-background-image: url("newtab-light.svg");
+    background-color: var(--newtab-background-color) !important;
+  }
+
+  html,
+  body {
+    min-height: 100vh !important;
+  }
+
+  html {
+    background: var(--newtab-background-color) !important;
+  }
+
+  body {
+    position: relative !important;
+    background: transparent !important;
+  }
+
+  body::before {
+    content: "" !important;
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    background-color: var(--newtab-background-color) !important;
+    background-image: var(--newtab-background-image) !important;
+    background-position: center bottom !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+  }
+
+  #root,
+  .outer-wrapper,
+  main,
+  .body-wrapper {
+    position: relative !important;
+    z-index: 1 !important;
+    background: transparent !important;
+  }
+
+  .wallpaper {
+    display: none !important;
+  }
+
+  .personalize-button,
+  .personalize-button:hover,
+  .customize-menu,
+  .customize-menu .close-button-wrapper {
+    background: transparent !important;
+  }
+
+  .logo-and-wordmark .wordmark {
+    display: none !important;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --newtab-background-color: #210340;
+      --newtab-background-image: url("newtab-dark.svg");
+      background-color: var(--newtab-background-color) !important;
+    }
+
+    html {
+      background: var(--newtab-background-color) !important;
+    }
+  }
+}

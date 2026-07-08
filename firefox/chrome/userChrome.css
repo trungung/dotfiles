@@ -1,0 +1,27 @@
+/*
+ * Firefox loads browser UI rules from userChrome.css.
+ * The new tab page is content, so its wallpaper rules are in userContent.css.
+ */
+
+/* Keep Firefox's native bottom findbar, but prevent page layout shift. */
+.browserContainer > findbar {
+  position: absolute !important;
+  inset-inline: 0 !important;
+  top: auto !important;
+  bottom: 0 !important;
+  z-index: 2147483647 !important;
+  margin-bottom: 0 !important;
+  opacity: 1 !important;
+  transform: translateY(0);
+  transition: transform 160ms ease !important;
+  visibility: visible !important;
+}
+
+.browserContainer > findbar[hidden] {
+  display: flex !important;
+  margin-bottom: 0 !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  transform: translateY(100%);
+  visibility: visible !important;
+}

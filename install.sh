@@ -69,5 +69,8 @@ stow --restow --target="$HOME" \
   starship \
   opencode
 
+echo "Linking Firefox chrome..."
+./scripts/firefox.sh
+
 echo "Dotfiles installed."
 echo "Manual follow-up: see README.md for local-only config, app sign-ins, and sanity checks."
