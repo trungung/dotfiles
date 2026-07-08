@@ -92,7 +92,7 @@ local fzf_ignore_patterns = {
 	".turbo/",
 }
 
-require("fzf-lua").setup({
+local fzf_options = {
 	file_ignore_patterns = fzf_ignore_patterns,
 	files = {
 		fd_opts = table.concat({
@@ -140,21 +140,49 @@ require("fzf-lua").setup({
 			["alt-k"] = "up",
 		},
 	},
-})
+}
+
+local fzf_configured = false
+local function fzf_lua()
+	local ok, fzf = pcall(require, "fzf-lua")
+	if not ok then
+		vim.notify("fzf-lua unavailable: " .. fzf, vim.log.levels.ERROR)
+		return nil
+	end
+	if not fzf_configured then
+		fzf.setup(fzf_options)
+		fzf_configured = true
+	end
+	return fzf
+end
+
 map("n", "<leader>ff", function()
-	require("fzf-lua").files({
+	local fzf = fzf_lua()
+	if not fzf then
+		return
+	end
+	fzf.files({
 		hidden = true,
 		no_ignore = true,
 	})
 end, "Find files")
 map("n", "<leader>fg", function()
-	require("fzf-lua").live_grep()
+	local fzf = fzf_lua()
+	if fzf then
+		fzf.live_grep()
+	end
 end, "Live grep")
 map("n", "<leader>fb", function()
-	require("fzf-lua").buffers()
+	local fzf = fzf_lua()
+	if fzf then
+		fzf.buffers()
+	end
 end, "Find buffers")
 map("n", "<leader>fo", function()
-	require("fzf-lua").oldfiles()
+	local fzf = fzf_lua()
+	if fzf then
+		fzf.oldfiles()
+	end
 end, "Recent files")
 
 -- ── completion ─────────────────────────────────────────────────────────────
@@ -197,7 +225,6 @@ local lsp_servers = {
 	"bashls",
 	"pyright",
 	"gopls",
-	"csharp_ls",
 	"eslint",
 	"biome",
 }
@@ -252,7 +279,7 @@ vim.lsp.enable(lsp_servers)
 
 -- ── treesitter ─────────────────────────────────────────────────────────────
 
-require("nvim-treesitter").install({
+local treesitter_languages = {
 	-- web
 	"javascript",
 	"typescript",
@@ -266,7 +293,6 @@ require("nvim-treesitter").install({
 	"gomod",
 	"gowork",
 	"gosum",
-	"c_sharp",
 	-- nvim / config
 	"lua",
 	"vim",
@@ -277,7 +303,15 @@ require("nvim-treesitter").install({
 	"markdown",
 	"markdown_inline",
 	"query",
-})
+}
+
+if vim.fn.executable("tree-sitter") == 1 then
+	require("nvim-treesitter").install(treesitter_languages)
+else
+	vim.schedule(function()
+		vim.notify("tree-sitter CLI not found; install tree-sitter-cli, then run :TSUpdate", vim.log.levels.WARN)
+	end)
+end
 
 -- enable treesitter highlighting for any buffer with a parser
 vim.api.nvim_create_autocmd("FileType", {
