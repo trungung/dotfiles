@@ -4,10 +4,6 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export EDITOR="${EDITOR:-code --wait}"
 export PATH="$HOME/.local/bin:$PATH"
 
-if [[ -d "$HOME/.local/share/bob/nvim-bin" ]]; then
-  export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
-fi
-
 if [[ -f "$HOME/.zshrc.private" ]]; then
   source "$HOME/.zshrc.private"
 fi

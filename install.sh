@@ -42,16 +42,16 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
   trap 'kill "$sudo_keepalive_pid" 2>/dev/null || true' EXIT
 fi
 
-echo "Tapping HashiCorp Homebrew repository..."
-brew tap hashicorp/tap
+# Terraform is currently disabled.
+# brew tap hashicorp/tap
 
 # Install lock-sensitive tools serially before brew bundle runs the full set.
 echo "Installing bootstrap formulae serially..."
 brew install \
   go \
   docker \
-  stow \
-  hashicorp/tap/terraform
+  stow
+# brew install hashicorp/tap/terraform
 
 echo "Running brew bundle..."
 brew bundle --verbose --file Brewfile
