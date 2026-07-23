@@ -77,62 +77,15 @@ require("gitsigns").setup({
 })
 
 -- ── fuzzy finder ───────────────────────────────────────────────────────────
-
-local fzf_ignore_patterns = {
-	"node_modules/",
-	"dist/",
-	"%.next/",
-	"%.git/",
-	"%.gitlab/",
-	"build/",
-	"target/",
-	"package%-lock%.json",
-	"pnpm%-lock%.yaml",
-	"yarn%.lock",
-	".turbo/",
-}
+-- Configuration optimized to utilize default global/local gitignores automatically.
+-- No need for large redundant lists of directories inside Lua.
 
 local fzf_options = {
-	file_ignore_patterns = fzf_ignore_patterns,
 	files = {
-		fd_opts = table.concat({
-			"--color=never",
-			"--type f",
-			"--hidden",
-			"--follow",
-			"--exclude .git",
-			"--exclude node_modules",
-			"--exclude dist",
-			"--exclude .next",
-			"--exclude .gitlab",
-			"--exclude build",
-			"--exclude target",
-			"--exclude package-lock.json",
-			"--exclude pnpm-lock.yaml",
-			"--exclude yarn.lock",
-		}, " "),
+		fd_opts = "--color=never --type f --hidden --follow --exclude .git",
 	},
 	grep = {
-		rg_opts = table.concat({
-			"--column",
-			"--line-number",
-			"--no-heading",
-			"--color=always",
-			"--smart-case",
-			"--max-columns=4096",
-			"--hidden",
-			"--glob '!.git/*'",
-			"--glob '!node_modules/*'",
-			"--glob '!dist/*'",
-			"--glob '!.next/*'",
-			"--glob '!.gitlab/*'",
-			"--glob '!build/*'",
-			"--glob '!target/*'",
-			"--glob '!package-lock.json'",
-			"--glob '!pnpm-lock.yaml'",
-			"--glob '!yarn.lock'",
-			"-e",
-		}, " "),
+		rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --hidden --glob '!.git/*'",
 	},
 	keymap = {
 		fzf = {

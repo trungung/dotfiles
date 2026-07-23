@@ -1,69 +1,64 @@
 # Dotfiles
 
-Memo for bootstrapping my macOS development environment. This repo is organized for GNU Stow: each top-level directory mirrors paths relative to `$HOME`.
+An elegant, minimal setup for my macOS development environment. This repository is organized using **GNU Stow**; each top-level directory directly mirrors paths relative to `$HOME`.
 
-## Fresh Machine Order
+---
 
-1. Install Apple command line tools.
+## 🚀 Fresh Machine Setup
 
-   ```sh
-   xcode-select --install
-   ```
+### 1. Prerequisite
+Install Apple Command Line Tools:
+```sh
+xcode-select --install
+```
 
-2. Clone this repo.
+### 2. Clone the Repository
+```sh
+git clone https://github.com/trungung/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+```
 
-   ```sh
-   git clone https://github.com/trungung/dotfiles.git ~/dotfiles
-   cd ~/dotfiles
-   ```
+### 3. Run the Installer
+```sh
+./install.sh
+```
+This automatically installs Homebrew (if missing), bundles all apps/CLI packages from `Brewfile`, configures directory structures, and links your dotfiles to `$HOME` via `stow`.
 
-3. Run the installer.
+*(Note: Pi configuration is intentionally not stowed; keep `~/.pi/agent` local to each machine.)*
 
-   ```sh
-   ./install.sh
-   ```
+### 4. Create Local-Only Configs
+Create your local environment files and customize them (do not commit these):
+```sh
+cp ~/.zshrc.private.example ~/.zshrc.private
+cp ~/.config/git/work.gitconfig.example ~/.config/git/work.gitconfig
+```
+*Note: Your personal Git details are already defined globally in `git/.gitconfig`—you only need to fill in `work.gitconfig` for work machines.*
 
-   This installs Homebrew if needed, runs `brew bundle --file Brewfile`, prepares local config directories, and stows the dotfiles into `$HOME`.
+### 5. Sign In & Manual Application Setup
+*   **Bitwarden**: Install from App Store, log in, and enable SSH agent / biometric extensions.
+*   **CLIs & Services**: Log in to GitHub CLI (`gh auth login`), Pi, VS Code, Claude, Codex, OpenCode, and Copilot.
+*   **Pi Packages**: Reinstall local pi packages as needed (e.g., `pi install npm:pi-web-access`).
+*   **System Apps**: Configure AltTab, Raycast shortcuts, and browser profiles.
+*   **Cloud Providers**: Re-authenticate credentials for Azure, AWS, Docker/OrbStack, or Kubernetes.
 
-   Pi config is intentionally not stowed; keep `~/.pi/agent` local to each machine.
+### 6. Apply macOS Defaults (Optional)
+Review and run the macOS quality-of-life defaults script:
+```sh
+./scripts/macos.sh
+```
 
-4. Create local-only config.
+---
 
-   ```sh
-   cp ~/.zshrc.private.example ~/.zshrc.private
-   cp ~/.config/git/work.gitconfig.example ~/.config/git/work.gitconfig
-   ```
+## 📂 Expected Local-Only Files
+The following files are expected to exist only on the local machine and are ignored by Git:
+*   `~/.zshrc.private` — Shell variables, API tokens, and machine-specific pathways.
+*   `~/.config/git/work.gitconfig` — Work email and signing keys for enterprise commits.
+*   `~/.pi/agent/` — Local Pi Agent configurations.
 
-   Edit these with machine/work-specific values. Do not commit the real files.
+---
 
-5. Sign in and finish app setup.
-
-   - Install Bitwarden from the App Store, then log in and enable the SSH agent/biometric extension if needed.
-   - Log in to GitHub/GitHub CLI, pi, VS Code, Claude/Codex/OpenCode/Copilot, Microsoft apps, Slack, Obsidian sync, and browser profiles.
-   - Reinstall any local pi packages you want on that machine, for example `pi install npm:pi-web-access`.
-   - Configure AltTab and Raycast shortcuts.
-   - Re-auth cloud/dev CLIs as needed: Azure, AWS, Kubernetes, Terraform, Docker/OrbStack.
-   - Clone only the repos currently needed.
-
-6. Optionally apply macOS defaults after reviewing them.
-
-   ```sh
-   ./scripts/macos.sh
-   ```
-
-## Notes
-
-- Stow links files from this repo into `$HOME`; it does not copy secrets into the repo by itself.
-- If Stow reports an existing-file conflict, inspect the local file and move it aside before rerunning `./install.sh`.
-- Keep secrets and machine-specific state local. Expected local-only files include:
-
-  ```text
-  ~/.zshrc.private
-  ~/.config/git/work.gitconfig
-  ~/.pi/agent/
-  ```
-
-## Sanity Checklist
+## 🔍 Sanity Checklist
+Once setup is complete, verify everything is working as expected:
 
 ```sh
 git config --show-origin user.email
@@ -74,4 +69,7 @@ pi --version
 pi list
 ```
 
-Then open Ghostty and check the shell prompt, font/theme, shell plugins, `nvim`, and local pi setup.
+Then, open **Ghostty** and ensure:
+*   [ ] Font size and theme (Gruvbox) are rendering correctly.
+*   [ ] Shell autocomplete menu works dynamically as you type.
+*   [ ] `nvim` loads instantly with LSP/formatting.

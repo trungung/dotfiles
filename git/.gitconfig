@@ -1,3 +1,13 @@
+# ==============================================================================
+# Git Global Configuration
+# ==============================================================================
+
+# Default global identity (Personal profile)
+[user]
+	name = trungung
+	email = ungkientrung@gmail.com
+
+# Core behaviors and UI tools
 [core]
 	pager = delta
 	excludesfile = ~/.gitignore_global
@@ -15,14 +25,15 @@
 	line-numbers = true
 	hyperlinks = true
 
-[includeIf "gitdir:~/Code/trungung/"]
-	path = ~/.config/git/personal.gitconfig
+# ==============================================================================
+# Conditional Profile Overrides
+# Matches repositories based on directory path to load work profiles dynamically
+# ==============================================================================
 
-[includeIf "gitdir:~/dotfiles/"]
-	path = ~/.config/git/personal.gitconfig
-
-[includeIf "gitdir:~/Code/work/"]
+# Work projects override
+[includeIf "gitdir:~/code/work/"]
 	path = ~/.config/git/work.gitconfig
 
-[includeIf "gitdir:~/go/"]
-	path = ~/.config/git/personal.gitconfig
+# SCP work projects override
+[includeIf "gitdir:~/code/scp/"]
+	path = ~/.config/git/work.gitconfig
