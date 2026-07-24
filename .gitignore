@@ -11,5 +11,4 @@ git/.config/git/work.gitconfig
 !.env.example
 !.env.*.example
 Brewfile.lock.json
-/pi/
 nvim.log

@@ -58,6 +58,28 @@ brew bundle --verbose --file Brewfile
 
 echo "Preparing config directories..."
 mkdir -p "$HOME/.config/git"
+mkdir -p "$HOME/.pi/agent"
+
+echo "Migrating Pi configuration..."
+PI_TRACKED_DIR="$(cd "$(dirname "$0")" && pwd)/pi/.pi/agent"
+if [ -d "$HOME/.pi/agent" ] && [ ! -L "$HOME/.pi/agent/settings.json" ]; then
+  echo "  Backing up local-only Pi files..."
+  PI_BACKUP="$(mktemp -d)"
+  for f in auth.json trust.json; do
+    [ -f "$HOME/.pi/agent/$f" ] && cp -a "$HOME/.pi/agent/$f" "$PI_BACKUP/" 2>/dev/null || true
+  done
+  for d in sessions npm; do
+    [ -d "$HOME/.pi/agent/$d" ] && cp -a "$HOME/.pi/agent/$d" "$PI_BACKUP/" 2>/dev/null || true
+  done
+  # Remove existing tracked files so stow can symlink cleanly over them
+  for f in settings.json themes/gruvbox.json; do
+    [ -f "$HOME/.pi/agent/$f" ] && rm "$HOME/.pi/agent/$f" 2>/dev/null || true
+  done
+  for f in "$PI_TRACKED_DIR"/prompts/*.md; do
+    [ -f "$HOME/.pi/agent/prompts/$(basename "$f")" ] && rm "$HOME/.pi/agent/prompts/$(basename "$f")" 2>/dev/null || true
+  done
+  echo "  Pi backup saved to $PI_BACKUP"
+fi
 
 echo "Stowing dotfiles..."
 stow --restow --target="$HOME" \
@@ -67,7 +89,21 @@ stow --restow --target="$HOME" \
   ghostty \
   lazygit \
   starship \
-  opencode
+  opencode \
+  pi
+
+# Restore local-only Pi files after stow creates symlinks
+if [ -n "${PI_BACKUP:-}" ] && [ -d "$PI_BACKUP" ]; then
+  echo "  Restoring local-only Pi files..."
+  for f in auth.json trust.json; do
+    [ -f "$PI_BACKUP/$f" ] && cp -a "$PI_BACKUP/$f" "$HOME/.pi/agent/" 2>/dev/null || true
+  done
+  for d in sessions npm; do
+    [ -d "$PI_BACKUP/$d" ] && cp -a "$PI_BACKUP/$d" "$HOME/.pi/agent/" 2>/dev/null || true
+  done
+  rm -rf "$PI_BACKUP"
+  echo "  Pi migration complete."
+fi
 
 echo "Linking Firefox chrome..."
 ./scripts/firefox.sh

@@ -24,7 +24,7 @@ cd ~/dotfiles
 ```
 This automatically installs Homebrew (if missing), bundles all apps/CLI packages from `Brewfile`, configures directory structures, and links your dotfiles to `$HOME` via `stow`.
 
-*(Note: Pi configuration is intentionally not stowed; keep `~/.pi/agent` local to each machine.)*
+*(Pi configuration in `pi/.pi/agent/` is stowed; see [Pi Configuration](#pi-configuration) below.)*
 
 ### 4. Create Local-Only Configs
 Create your local environment files and customize them (do not commit these):
@@ -37,7 +37,7 @@ cp ~/.config/git/work.gitconfig.example ~/.config/git/work.gitconfig
 ### 5. Sign In & Manual Application Setup
 *   **Bitwarden**: Install from App Store, log in, and enable SSH agent / biometric extensions.
 *   **CLIs & Services**: Log in to GitHub CLI (`gh auth login`), Pi, VS Code, Claude, Codex, OpenCode, and Copilot.
-*   **Pi Packages**: Reinstall local pi packages as needed (e.g., `pi install npm:pi-web-access`).
+*   **Pi Packages**: Already tracked in `pi/.pi/agent/settings.json`; reinstall local packages if needed (`pi install npm:pi-web-access`).
 *   **System Apps**: Configure AltTab, Raycast shortcuts, and browser profiles.
 *   **Cloud Providers**: Re-authenticate credentials for Azure, AWS, Docker/OrbStack, or Kubernetes.
 
@@ -53,9 +53,29 @@ Review and run the macOS quality-of-life defaults script:
 The following files are expected to exist only on the local machine and are ignored by Git:
 *   `~/.zshrc.private` — Shell variables, API tokens, and machine-specific pathways.
 *   `~/.config/git/work.gitconfig` — Work email and signing keys for enterprise commits.
-*   `~/.pi/agent/` — Local Pi Agent configurations.
 
 ---
+
+## 🤖 Pi Configuration
+
+Pi settings (`~/.pi/agent/`) are now managed via stow from `pi/.pi/agent/`. The following files are tracked in git:
+
+| File | Purpose |
+|------|---------|
+| `settings.json` | Theme, models, packages, compaction settings |
+| `themes/gruvbox.json` | Custom Gruvbox theme |
+| `prompts/*.md` | Custom `/` slash-commands (debug, explain, implement, plan, etc.) |
+
+The following are **local-only** and excluded by `pi/.pi/agent/.gitignore`:
+
+| File | Reason |
+|------|--------|
+| `auth.json` | Provider API keys and authentication tokens |
+| `trust.json` | Project trust decisions (machine-specific) |
+| `sessions/` | Session history (machine-specific, potentially large) |
+| `npm/` | Locally installed pi npm packages with dependencies |
+
+On first install, `install.sh` automatically backs up your existing local-only files, sets up the stow symlinks, and restores them. After that, changes via `/settings` or theme edits land directly in the tracked dotfiles.
 
 ## 🔍 Sanity Checklist
 Once setup is complete, verify everything is working as expected:
