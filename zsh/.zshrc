@@ -26,6 +26,10 @@ for antidote_path in \
   fi
 done
 
+# Disable zsh-autocomplete's default behavior of appending a `;` to the end of
+# the line when autocompleting from history with the Up arrow.
+zstyle ':autocomplete:*' add-semicolon no
+
 if typeset -f antidote >/dev/null 2>&1; then
   [[ -f "$HOME/.zsh_plugins.txt" ]] && antidote load
 fi
